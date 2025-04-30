@@ -1,0 +1,42 @@
+## Build output
+bin/
+obj/
+
+## Rider project files
+.idea/
+*.sln.iml
+
+## VS Code (if occasionally used)
+.vscode/
+
+## User-specific and temp files
+*.user
+*.suo
+*.tmp
+*.log
+*.tlog
+*.userosscache
+*.sln.docstates
+
+## NuGet
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+
+## ASP.NET Core specific
+wwwroot/lib/
+appsettings.Development.json
+appsettings.Local.json
+
+## Swagger (generated files)
+swagger/v1/swagger.json
+swagger/v1/swagger.yaml
+
+## Secrets and config
+.env
+secrets.json
+
+## OS-specific
+.DS_Store
+Thumbs.db
