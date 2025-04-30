@@ -25,4 +25,12 @@ public class TweetsController : ControllerBase
         await _tweetService.CreateAsync(tweet);
         return CreatedAtAction(nameof(Post), new { id = tweet.Id }, tweet);
     }
+    
+    [HttpGet("hashtags")]
+    public async Task<ActionResult<List<HashtagCount>>> GetTopHashtags()
+    {
+        var result = await _tweetService.GetTopHashtagsAsync();
+        return Ok(result);
+    }
+
 }
