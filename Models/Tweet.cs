@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Options;
 
 namespace TweetApi.Models;
 
-[BsonIgnoreExtraElements] // <-- add this line
+[BsonIgnoreExtraElements] 
 public class Tweet
 {
     [BsonId]
