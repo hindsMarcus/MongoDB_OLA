@@ -4,9 +4,7 @@
 Top 10 Tweets
 | #  | Tweet ID                         | Text |
 |----|----------------------------------|------|
-| 1  | `553bbecae8f1e57878b72a1c` | RT @webinara: RT: http://t.co/tgxDJSOrHb #webinar #TrueTwit #TechTip.  
-A Node.js API development webinar:  
-https://t.co/nBjkk4MnuN |
+| 1  | `553bbecae8f1e57878b72a1c` | RT @webinara: RT: http://t.co/tgxDJSOrHb #webinar #TrueTwit #TechTip. A Node.js API development webinar:<br>https://t.co/nBjkk4MnuN |
 | 2  | `553bbecae8f1e57878b72a1d` | RT @zhangtai_me: Starting Angularjs Essentials, by Rodrigo Branas http://t.co/b2HaUzVtKt |
 | 3  | `553bbecae8f1e57878b72a1e` | [CALENDAR] Barça have 5 league games left, 2 #UCL semi-final games, and the Spanish Cup final: http://t.co/mWKOzNEWFo http://t.co/cyN1ZZNsSx |
 | 4  | `553bbecae8f1e57878b72a1f` | RT @YAPCNA: David Golden (@xdg) talks about working with both Perl and MongoDB http://t.co/BEVQB521Al http://t.co/DallwKNcR8 |
