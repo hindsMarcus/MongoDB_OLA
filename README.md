@@ -1,6 +1,82 @@
 ﻿# MongoDB_OLA
 
-# Top 10 Hashtags
+
+## a) What is sharding in MongoDB
+
+Sharding er MongoDB's måde at bruge horizontal skalering, ved at splitte større datasæt ind i mindre dele (kaldet *shards*), som så ligger på flere servere.
+
+---
+
+## b) Komponenter, der kræves for at implementere sharding i MongoDB
+
+### **Shards**
+Shards er de enheder, der gemmer selve dataene. Typisk består en shard af et replikasæt for både en højere tilgængelighed og fejltolerance. Hver shard indeholder kun en delmængde af den samlede database.
+
+### **Konfigurationsservere (Config Servers)**
+Disse servere lagrer alle metadata om klyngens struktur, såsom information om hvilke data der findes på hvilke shards. Konfigurationsserverne udgør en kritisk del af systemet og skal altid være redundant opsat (mindst tre servere).
+
+### **MongoS Routere**
+MongoS fungerer som en gateway mellem klientapplikationer og sharded cluster. Routeren bruger information fra konfigurationsserverne til at dirigere forespørgsler til de rette shards baseret på shardnøglen.
+
+---
+
+## c) Forklar arkitekturen for sharding i MongoDB
+
+Et sharded cluster i MongoDB er bygget op af flere vigtige komponenter:
+
+- **Datafordeling på tværs af flere shards**:  
+  Hver shard er ansvarlig for en delmængde af hele datasættet og består typisk af et replikasæt for højere driftssikkerhed.
+
+- **Konfigurationsservere**:  
+  Disse servere indeholder al nødvendig metadata om klyngens opbygning, herunder hvilke dataområder (*chunks*) der befinder sig på hvilke shards.
+
+- **Shardingnøgle**:  
+  En bestemt nøgle vælges til at bestemme, hvordan dokumenter partitioneres på tværs af shards. Valget af shardnøgle er afgørende for en jævn fordeling og effektiv forespørgselsydelse.
+
+- **MongoS Routere**:  
+  Klientapplikationer kommunikerer ikke direkte med shards, men i stedet via MongoS, som intelligent videresender anmodninger til de relevante shards, baseret på dataens placering og shardingnøglen.
+
+---
+
+## d) Provide implementation of map and reduce function
+
+```javascript
+var map = function() {
+  if (this.entities && this.entities.hashtags) {
+    this.entities.hashtags.forEach(function(tag) {
+      emit(tag.text.toLowerCase(), 1);
+    });
+  }
+};
+
+var reduce = function(key, values) {
+  return Array.sum(values);
+};
+```
+
+---
+
+## e) Provide execution command for running MapReduce or the aggregate way of doing the same
+
+### **Query**:
+```javascript
+db.hashtag_counts.find().sort({ value: -1 }).limit(10)
+```
+
+### **Aggregation**:
+```javascript
+db.tweets.aggregate([
+  { $unwind: "$entities.hashtags" },
+  { $group: { _id: { $toLower: "$entities.hashtags.text" }, count: { $sum: 1 } } },
+  { $sort: { count: -1 } },
+  { $limit: 10 }
+])
+```
+
+---
+
+## f) Provide top 10 recorded out of the sorted result. (hint: use sort on the result returned by MapReduce or the aggregate way of doing the same)
+### Top 10 Hashtags
 | #  | Hashtag       | Count |
 |----|---------------|-------|
 | 1  | angularjs     | 29    |
@@ -14,7 +90,7 @@
 | 9  | iwci          | 17    |
 | 10 | job           | 13    |
 
-# Top 10 Tweets
+### Top 10 Tweets
 | #  | Tweet ID                         | Text |
 |----|----------------------------------|------|
 | 1  | `553bbecae8f1e57878b72a1c` | RT @webinara: RT: http://t.co/tgxDJSOrHb #webinar #TrueTwit #TechTip. A Node.js API development webinar:<br>https://t.co/nBjkk4MnuN |
